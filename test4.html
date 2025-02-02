@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>To-Do List</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: "Arial", sans-serif;
+            background: linear-gradient(135deg, #f8fafc, #3215d8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 400px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .completed-container {
+            background-color: #f0f0f0;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 400px;
+            text-align: center;
+        }
+
+        ul {
+            padding: 0;
+        }
+
+        li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            background-color: #f4f4f4;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .deleteTask {
+            background-color: #ff6b6b;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>To-Do List</h1>
+        <div class="input-group">
+            <input type="text" id="taskNameInput" placeholder="Task Name" />
+            <input type="text" id="taskDescriptionInput" placeholder="Description"/>
+            <button id="addTask">Add</button>
+        </div>
+        <ul id="taskList"></ul>
+    </div>
+    
+    <div class="completed-container">
+        <h2>Completed Tasks</h2>
+        <ul id="completedTaskList"></ul>
+    </div>
+    
+    <script>
+        document.getElementById("addTask").addEventListener("click", function() {
+            const taskName = document.getElementById("taskNameInput").value.trim();
+            const taskDescription = document.getElementById("taskDescriptionInput").value.trim();
+            if (taskName && taskDescription) {
+                createTaskElement(taskName, taskDescription);
+                document.getElementById("taskNameInput").value = "";
+                document.getElementById("taskDescriptionInput").value = "";
+            } else {
+                alert("Please fill out both fields!");
+            }
+        });
+
+        function createTaskElement(taskName, taskDescription) {
+            const listItem = document.createElement("li");
+            const taskContainer = document.createElement("div");
+            taskContainer.style.display = "flex";
+            
+            const checkbox = document.createElement("input");
+            checkbox.type = "checkbox";
+
+            const taskContent = document.createElement("span");
+            taskContent.innerHTML = `<strong>${taskName}</strong><br>${taskDescription}`;
+            
+            checkbox.addEventListener("click", function() {
+                if (checkbox.checked) {
+                    document.getElementById("completedTaskList").appendChild(listItem);
+                } else {
+                    document.getElementById("taskList").appendChild(listItem);
+                }
+            });
+            
+            taskContainer.appendChild(checkbox);
+            taskContainer.appendChild(taskContent);
+            listItem.appendChild(taskContainer);
+            
+            const deleteButton = document.createElement("button");
+            deleteButton.innerHTML = '<i class="fa-solid fa-trash-can"></i>';
+            deleteButton.className = "deleteTask";
+            deleteButton.addEventListener("click", function () {
+                listItem.remove();
+            });
+            listItem.appendChild(deleteButton);
+            
+            document.getElementById("taskList").appendChild(listItem);
+        }
+    </script>
+</body>
+</html>
+checkbox.addEventListener("click", function () {
+    if (checkbox.checked) {
+        taskNameElement.style.textDecoration = "line-through"; // ขีดฆ่า task-name
+        taskdesElement.style.textDecoration = "line-through"; // ขีดฆ่า task-des
+        document.getElementById("completedTaskList").appendChild(listItem);
+    } else {
+        taskNameElement.style.textDecoration = "none";
+        taskdesElement.style.textDecoration = "none";
+        document.getElementById("taskList").appendChild(listItem);
+    }
+});
+
+// รวม checkbox และข้อความไว้ใน taskContainer
+taskContainer.appendChild(checkbox);
+taskContainer.appendChild(taskContent);
+listItem.appendChild(taskContainer);
+
+// ปุ่มลบ
+const deleteButton = document.createElement("button");
+deleteButton.innerHTML = '<i class="fa-solid fa-trash-can"></i>';
+deleteButton.className = "deleteTask";
+deleteButton.addEventListener("click", function () {
+    listItem.remove(); // ลบ Task ออกจาก DOM
+});
+
+listItem.appendChild(deleteButton);
+taskList.insertBefore(listItem, taskList.firstChild);

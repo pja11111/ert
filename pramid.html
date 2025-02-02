@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lower Left Triangle</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        td {
+            border: 1px solid #da2929;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .highlight {
+            background-color: #add8e6; /* สีฟ้า */
+        }
+    </style>
+</head>
+<body>
+
+<table id="table"></table> <!-- Table element to display the result -->
+
+<script>
+    // ข้อมูลต้นทางที่ต้องการสร้างตาราง
+    const data = [66, 44, 23, 78, 90, 34, 89, 23, 90, 35];
+
+    // ฟังก์ชันสร้างตาราง 2D แบบ Lower Left Triangle
+    function createLowerLeftTriangle(arr) {
+        let result = [];
+        for (let x = 0; x < arr.length; x++) {
+            let row = [];
+            for (let y = 0; y < arr.length; y++) {
+                // ตรวจสอบเงื่อนไขxห้อยู่ในรูปแบบสามเหลี่ยมล่างซ้าย
+                if (x <= y ) {
+                    row.push(`[${arr[y]}]`);
+                } else {
+                    row.push([x,y]) // เว้นที่ว่าง
+                }
+            }
+            result.push(row);
+        }
+        return result;
+    }
+
+    // เรียกฟังก์ชันเพื่อสร้างตาราง
+    const result = createLowerLeftTriangle(data);
+
+    // แสดงผลตารางใน HTML
+    const table = document.getElementById('table');
+    result.forEach((row) => {
+        const tr = document.createElement('tr');
+        row.forEach((cell) => {
+            const td = document.createElement('td');
+            td.innerText = cell;
+            // if (cell !== '') {
+            //     td.classList.add('highlight'); 
+            // }
+            tr.appendChild(td);
+        });
+        table.appendChild(tr);
+    });
+</script>
+
+</body>
+</html>

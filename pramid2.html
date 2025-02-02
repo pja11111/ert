@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>สามเหลี่ยมตรงกลาง</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        td {
+            border: 1px solid #da2929;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .highlight {
+            background-color: #add8e6; /* สีฟ้า */
+        }
+    </style>
+</head>
+<body>
+
+    <table id="table"></table> <!-- Table element to display the result -->
+
+    <script>
+        // ข้อมูลต้นทางที่ต้องการสร้างตาราง
+        const data = [66, 44, 23, 78, 90, 34, 89, 23, 90, 35];
+
+        // ฟังก์ชันสร้างตาราง 2D สามเหลี่ยมแนวตั้งตรงกลาง
+        function create2DArray(arr) {
+            let result = [];
+            const numRows = arr.length;
+            const midPoint = Math.floor(numRows / 2); // คำนวณจุดกึ่งกลาง
+
+            for (let x = 0; x < numRows; x++) {
+                let row = [];
+                for (let y = 0; y < numRows; y++) {
+                    // เงื่อนไขให้แสดงค่าที่อยู่ในสามเหลี่ยมแนวตั้งตรงกลาง
+                    if (y >= midPoint - x && y <= midPoint + x && y < numRows) {
+                        row.push(arr[y]); // ดึงค่าจาก data
+                    } else {
+                        // row.push("");
+                        row.push([x,y])
+                    }
+                }
+                result.push(row);
+            }
+            return result;
+        }
+
+        // เรียกฟังก์ชันเพื่อสร้างตาราง 2D จากข้อมูลใน data
+        const result = create2DArray(data);
+
+        // แสดงผลตารางใน HTML
+        const table = document.getElementById('table');
+        result.forEach((row, rowIndex) => {
+            const tr = document.createElement('tr');
+            row.forEach((cell, cellIndex) => {
+                const td = document.createElement('td');
+                td.innerText = cell;
+
+                // ไฮไลต์เซลล์ที่ตำแหน่ง [0, 0]
+                if (rowIndex === 0 && cellIndex === Math.floor(row.length / 2)) {
+                    td.classList.add('highlight');
+                }
+
+                tr.appendChild(td);
+            });
+            table.appendChild(tr);
+        });
+    </script>
+
+</body>
+</html>

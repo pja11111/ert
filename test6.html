@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="th">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Custom Delete Confirmation</title>
+    <script
+      src="https://kit.fontawesome.com/YOUR_FONT_AWESOME_KEY.js"
+      crossorigin="anonymous"
+    ></script>
+    <style>
+      /* CSS สำหรับ Modal */
+      .modal {
+        display: none;
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.4);
+        justify-content: center;
+        align-items: center;
+      }
+
+      .modal-content {
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        text-align: center;
+        width: 300px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+
+      .modal-header {
+        font-size: 18px;
+        font-weight: bold;
+        margin-bottom: 15px;
+      }
+
+      .modal-body {
+        margin-bottom: 15px;
+      }
+
+      .modal-footer {
+        display: flex;
+        justify-content: space-around;
+      }
+
+      .btn {
+        padding: 8px 15px;
+        border: none;
+        cursor: pointer;
+        border-radius: 5px;
+        font-size: 14px;
+      }
+
+      .btn.confirm {
+        background-color: #e74c3c;
+        color: white;
+      }
+
+      .btn.cancel {
+        background-color: #bdc3c7;
+      }
+    </style>
+  </head>
+  <body>
+    <ul id="taskList"></ul>
+
+    <!-- Custom Modal -->
+    <div id="deleteModal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">ยืนยันการลบ</div>
+        <div class="modal-body" id="modalText"></div>
+        <div class="modal-footer">
+          <button class="btn confirm" id="confirmDelete">ลบ</button>
+          <button class="btn cancel" id="cancelDelete">ยกเลิก</button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const taskList = document.getElementById("taskList");
+      const deleteModal = document.getElementById("deleteModal");
+      const modalText = document.getElementById("modalText");
+      const confirmDeleteBtn = document.getElementById("confirmDelete");
+      const cancelDeleteBtn = document.getElementById("cancelDelete");
+      let targetItem = null;
+
+      function addTask(taskName) {
+        const listItem = document.createElement("li");
+        listItem.textContent = taskName;
+
+        const deleteButton = document.createElement("button");
+        deleteButton.innerHTML = '<i class="fa-solid fa-trash-can"></i>';
+        deleteButton.className = "deleteTask";
+
+        deleteButton.addEventListener("click", function () {
+          targetItem = listItem;
+          modalText.textContent = `คุณต้องการลบ "${taskName}" หรือไม่?`;
+          deleteModal.style.display = "flex"; // แสดง modal
+        });
+
+        listItem.appendChild(deleteButton);
+        taskList.insertBefore(listItem, taskList.firstChild);
+      }
+
+      confirmDeleteBtn.addEventListener("click", function () {
+        if (targetItem) {
+          targetItem.remove();
+          targetItem = null;
+        }
+        deleteModal.style.display = "none";
+      });
+
+      cancelDeleteBtn.addEventListener("click", function () {
+        deleteModal.style.display = "none";
+      });
+
+      // เพิ่มตัวอย่าง task
+      addTask("ทำการบ้าน");
+      addTask("ซื้อนม");
+      addTask("อ่านหนังสือ");
+    </script>
+  </body>
+</html>

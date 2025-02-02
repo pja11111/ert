@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Manager</title>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <style>
+        .deleteTask { cursor: pointer; }
+        .bulk-delete { margin-top: 10px; display: none; }
+    </style>
+</head>
+<body>
+
+    <input type="text" id="taskNameInput" placeholder="Task Name">
+    <input type="text" id="taskDescriptionInput" placeholder="Task Description">
+    <button id="addTask">Add Task</button>
+    
+    <ul id="taskList"></ul>
+
+    <button id="bulkDeleteBtn" class="bulk-delete">Bulk Delete</button>
+
+    <div id="deleteModal" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 20px; border: 1px solid black;">
+        <p id="modalText"></p>
+        <input type="text" id="confirmInput">
+        <button id="confirmDelete">Confirm Delete</button>
+        <button id="cancelDelete">Cancel</button>
+    </div>
+
+    <script>
+        const addButton = document.getElementById("addTask");
+        const taskNameInput = document.getElementById("taskNameInput");
+        const taskDescriptionInput = document.getElementById("taskDescriptionInput");
+        const taskList = document.getElementById("taskList");
+        const deleteModal = document.getElementById("deleteModal");
+        const modalText = document.getElementById("modalText");
+        const confirmDeleteBtn = document.getElementById("confirmDelete");
+        const cancelDeleteBtn = document.getElementById("cancelDelete");
+        const bulkDeleteBtn = document.getElementById("bulkDeleteBtn");
+
+        let tasks = JSON.parse(localStorage.getItem("tasks")) || [
+            { id: Date.now(), name: "Task 1", description: "Description for task 1", completed: false },
+            { id: Date.now(), name: "Task 2", description: "Description for task 2", completed: false },
+            { id: Date.now(), name: "Task 3", description: "Description for task 3", completed: false },
+            { id: 4, name: "Task 4", description: "Description for task 4", completed: false },
+        ];
+        let selectedTasks = new Set();
+
+        function saveTasks() {
+            localStorage.setItem("tasks", JSON.stringify(tasks));
+        }
+
+        function addTask() {
+            const taskName = taskNameInput.value.trim();
+            const taskDescription = taskDescriptionInput.value.trim();
+
+            if (taskName && taskDescription) {
+                const task = { id: Date.now(), name: taskName, description: taskDescription, completed: false };
+                tasks.push(task);
+                saveTasks();
+                createTaskElement(task);
+                taskNameInput.value = "";
+                taskDescriptionInput.value = "";
+            } else {
+                alert("Please fill out both fields!");
+            }
+        }
+        addButton.addEventListener("click", addTask);
+
+        function createTaskElement(task) {
+            const listItem = document.createElement("li");
+            listItem.dataset.id = task.id;
+
+            const checkbox = document.createElement("input");
+            checkbox.type = "checkbox";
+            checkbox.className = "task-check";
+            checkbox.checked = task.completed;
+            
+            const taskContent = document.createElement("span");
+            taskContent.innerHTML = `<strong>${task.name}</strong>: ${task.description}`;
+
+            const deleteButton = document.createElement("button");
+            deleteButton.className = "deleteTask";
+            deleteButton.innerHTML = `<i class="fa-solid fa-trash-can" style="color:red;"></i>`;
+
+            checkbox.addEventListener("change", () => {
+                task.completed = checkbox.checked;
+                saveTasks();
+            });
+
+            deleteButton.addEventListener("click", () => {
+                selectedTasks.add(task.id);
+                showDeleteModal();
+            });
+
+            listItem.appendChild(checkbox);
+            listItem.appendChild(taskContent);
+            listItem.appendChild(deleteButton);
+            taskList.appendChild(listItem);
+        }
+
+        function loadTasks() {
+            taskList.innerHTML = "";
+            tasks.forEach(task => createTaskElement(task));
+            updateBulkDeleteButton();
+        }
+
+        function showDeleteModal() {
+            modalText.innerHTML = `คุณต้องการลบ <strong>${selectedTasks.size}</strong> รายการหรือไม่? <br>พิมพ์ "confirm" เพื่อยืนยัน`;
+            deleteModal.style.display = "block";
+        }
+
+        confirmDeleteBtn.addEventListener("click", () => {
+            const confirmInput = document.getElementById("confirmInput").value.trim().toLowerCase();
+            if (confirmInput === "confirm") {
+                tasks = tasks.filter(task => !selectedTasks.has(task.id));
+                saveTasks();
+                loadTasks();
+                selectedTasks.clear();
+                deleteModal.style.display = "none";
+            } else {
+                alert("กรุณาพิมพ์ 'confirm' ให้ถูกต้อง");
+            }
+        });
+
+        cancelDeleteBtn.addEventListener("click", () => {
+            deleteModal.style.display = "none";
+        });
+
+        function updateBulkDeleteButton() {
+            bulkDeleteBtn.style.display = tasks.length > 0 ? "block" : "none";
+        }
+
+        bulkDeleteBtn.addEventListener("click", () => {
+            selectedTasks = new Set(tasks.map(task => task.id));
+            showDeleteModal();
+        });
+
+        window.addEventListener("load", loadTasks);
+    </script>
+
+</body>
+</html>

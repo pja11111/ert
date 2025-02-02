@@ -1,0 +1,268 @@
+* {
+  margin: 0; /* กำหนดระยะ margin เป็น 0 สำหรับทุกองค์ประกอบ */
+  padding: 0; /* กำหนดระยะ padding เป็น 0 สำหรับทุกองค์ประกอบ */
+  box-sizing: border-box; /* รวม border และ padding ในการคำนวณขนาด */
+}
+
+body {
+  font-family: Arial, sans-serif; /* ใช้ฟอนต์ Arial หรือ Sans-serif เป็นตัวสำรอง */
+  color: #333; /* ตั้งสีข้อความเป็นสีเทา */
+  background-color: #fff; /* กำหนดสีพื้นหลังเป็นสีขาว */
+  line-height: 1.6; /* เพิ่มระยะห่างระหว่างบรรทัด */
+}
+
+.header {
+  background-color: #4caf50; /* ตั้งสีพื้นหลังเป็นสีเขียว */
+  display: flex; /* ใช้ Flexbox เพื่อจัดเรียง */
+  align-items: center; /* จัดให้องค์ประกอบในแนวแกนตั้งอยู่ตรงกลาง */
+  justify-content: space-between; /* จัดช่องว่างระหว่างองค์ประกอบในแนวนอน */
+  padding: 10px 20px; /* เพิ่มระยะห่างรอบองค์ประกอบ */
+  color: white; /* ตั้งสีข้อความเป็นสีขาว */
+  width: 100%; /* ขยายความกว้างเต็มหน้าจอ */
+  height: 60px; /* ตั้งความสูงของส่วน header */
+  box-sizing: border-box; /* รวม border และ padding ในขนาด */
+  top: 0; /* ตรึงตำแหน่งไว้ด้านบน */
+  left: 0; /* ตรึงตำแหน่งไว้ด้านซ้าย */
+  right: 0; /* ตรึงตำแหน่งไว้ด้านขวา */
+}
+
+.navbar {
+  display: flex; /* ใช้ Flexbox */
+  align-items: center; /* จัดตำแหน่งในแนวแกนตั้งให้อยู่ตรงกลาง */
+}
+
+.epoch {
+  padding: 5px 10px; /* กำหนดระยะ padding รอบข้อความ */
+  margin-right: 15px; /* ระยะห่างจากองค์ประกอบถัดไปในแนวนอน */
+  font-weight: bold; /* ทำให้ข้อความหนา */
+}
+
+.navbar a {
+  margin-right: 15px; /* ระยะห่างระหว่างลิงก์ */
+  color: rgb(255, 255, 255); /* ตั้งสีข้อความเป็นสีขาว */
+  text-decoration: none; /* ลบเส้นใต้ */
+  font-weight: bold; /* ทำให้ข้อความหนา */
+}
+
+.navbar a:hover {
+  text-decoration: none; /* ยังคงไม่มีเส้นใต้เมื่อเลื่อนเมาส์ */
+  border: 15px solid gray; /* เพิ่ม border รอบลิงก์ */
+  background-color: gray; /* เปลี่ยนสีพื้นหลังเมื่อเลื่อนเมาส์ */
+  box-sizing: border-box; /* รวม border ในการคำนวณขนาด */
+}
+
+.search-container {
+  display: flex; /* ใช้ Flexbox */
+  align-items: center; /* จัดตำแหน่งในแนวแกนตั้งให้อยู่ตรงกลาง */
+  padding: 5px; /* เพิ่มระยะห่างรอบองค์ประกอบ */
+  margin-right: 350px; /* ระยะห่างจากด้านขวา */
+}
+
+.currency-dropdown {
+  border: none; /* ไม่มี border */
+  padding: 5px 10px; /* เพิ่มระยะ padding รอบข้อความ */
+  margin-right: 1px; /* ระยะห่างระหว่าง dropdown กับองค์ประกอบข้างเคียง */
+  background-color: #4caf50; /* ตั้งสีพื้นหลังเป็นสีเขียว */
+  font-size: 14px; /* ขนาดตัวอักษร */
+  cursor: pointer; /* เปลี่ยน cursor เป็น pointer */
+  color: white; /* ตั้งสีข้อความเป็นสีขาว */
+}
+
+.address-input {
+  padding: 10px; /* เพิ่มระยะ padding รอบข้อความ */
+  padding-right: 1px; /* เพิ่มระยะด้านขวา */
+  margin-right: 5px; /* ระยะห่างจากองค์ประกอบถัดไป */
+  font-size: 14px; /* ขนาดตัวอักษร */
+  width: 80px; /* ความกว้างของช่องกรอกข้อความ */
+  border-radius: 5px; /* มุมโค้งของ input */
+  border: none; /* ไม่มี border */
+}
+
+.search-button {
+  background-color: #c0c0c0; /* ตั้งสีพื้นหลังเป็นสีเทา */
+  color: #000; /* ตั้งสีข้อความเป็นสีดำ */
+  border: none; /* ไม่มี border */
+  padding: 12px 14px; /* ระยะ padding รอบข้อความ */
+  border-radius: 5px; /* มุมโค้งของปุ่ม */
+  cursor: pointer; /* เปลี่ยน cursor เป็น pointer */
+}
+
+.search-button:hover {
+  background-color: #a9a9a9; /* เปลี่ยนสีพื้นหลังเมื่อเลื่อนเมาส์ */
+}
+
+.dashboard {
+  max-width: auto; /* ขนาดสูงสุดของ dashboard */
+  padding: 10px; /* เพิ่มระยะ padding รอบเนื้อหา */
+  background-color: white; /* สีพื้นหลัง */
+  text-align: center; /* จัดข้อความให้อยู่ตรงกลาง */
+}
+
+.discord {
+  margin-top: 5px; /* ระยะห่างด้านบน */
+  padding: 0; /* ไม่มี padding */
+  font-size: 14px; /* ขนาดตัวอักษร */
+  box-sizing: border-box; /* รวม border ในขนาด */
+}
+
+.cards-container {
+  display: flex; /* ใช้ Flexbox */
+  gap: 20px; /* ระยะห่างระหว่าง card */
+  padding: 20px; /* เพิ่มระยะ padding รอบ container */
+  justify-content: center; /* จัดตำแหน่งให้อยู่ตรงกลาง */
+  align-items: center; /* จัดตำแหน่งในแนวแกนตั้งให้อยู่ตรงกลาง */
+}
+
+.card {
+  width: 200px; /* ความกว้างของ card */
+  border: 1px solid #4caf50; /* เส้นขอบสีเขียว */
+  border-radius: 8px; /* มุมโค้ง */
+  text-align: center; /* จัดข้อความให้อยู่ตรงกลาง */
+  font-size: 16px; /* ขนาดตัวอักษร */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* เงาใต้ card */
+}
+
+.card-header {
+  background-color: #4caf50; /* สีพื้นหลังส่วนหัวของ card */
+  color: white; /* สีข้อความเป็นสีขาว */
+  padding: 10px; /* เพิ่มระยะ padding รอบส่วนหัว */
+  font-weight: bold; /* ทำให้ข้อความหนา */
+  border-radius: 8px 8px 0 0; /* มุมโค้งเฉพาะด้านบน */
+}
+
+.card-body {
+  padding: 15px; /* เพิ่มระยะ padding รอบเนื้อหา */
+  font-size: 18px; /* ขนาดตัวอักษร */
+  font-weight: bold; /* ทำให้ข้อความหนา */
+  color: #333; /* ตั้งสีข้อความ */
+}
+.content-section {
+  display: flex; /* ใช้ Flexbox จัดการ layout */
+  gap: 10px; /* ระยะห่างระหว่างองค์ประกอบใน Flexbox */
+  padding-left: 480px; /* เพิ่มระยะเว้นทางด้านซ้าย */
+  margin-top: 20px; /* ระยะห่างจากส่วนบน */
+}
+
+.features {
+  background: white; /* ตั้งสีพื้นหลังเป็นสีขาว */
+  padding: 20px; /* เพิ่มระยะ padding รอบเนื้อหา */
+  border-radius: 5px; /* ทำมุมโค้งให้กล่อง */
+  width: 20%; /* ความกว้างของกล่อง */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* เพิ่มเงาแบบจางๆ */
+  text-align: left; /* จัดข้อความให้อยู่ด้านซ้าย */
+}
+
+.recent-blocks {
+  background: white; /* ตั้งสีพื้นหลังเป็นสีขาว */
+  padding: 20px; /* เพิ่มระยะ padding รอบเนื้อหา */
+  border-radius: 5px; /* ทำมุมโค้งให้กล่อง */
+  width: 50%; /* ความกว้างของกล่อง */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* เพิ่มเงาแบบจางๆ */
+}
+
+/* .features h3, */
+.recent-blocks h3 {
+  margin-bottom: 15px; /* ระยะห่างด้านล่างของหัวข้อ */
+  margin-left: 40px; /* ระยะห่างด้านซ้ายของหัวข้อ */
+  color: #333; /* สีข้อความของหัวข้อ */
+  font-size: 1.2em; /* ขนาดตัวอักษร */
+  align-items: center; /* จัดตำแหน่งหัวข้อให้อยู่ตรงกลาง (ใน Flexbox) */
+}
+
+.features ul {
+  list-style: none; /* ลบ bullet point ของรายการ */
+  padding: 0; /* ลบระยะห่างภายใน */
+}
+
+.features li {
+  padding: 5px 0; /* เพิ่มระยะห่างระหว่างรายการ */
+}
+
+.recent-blocks table {
+  width: 100%; /* ตารางขยายเต็มความกว้าง */
+  border-collapse: collapse; /* รวมเส้นขอบของตาราง */
+}
+
+.recent-blocks th,
+.recent-blocks td {
+  border: 1px solid #ddd; /* เส้นขอบสีเทาอ่อน */
+  padding: 8px; /* เพิ่มระยะ padding รอบเนื้อหาในเซลล์ */
+  text-align: left; /* จัดข้อความให้อยู่ด้านซ้าย */
+}
+
+.connection-settings {
+  padding: 20px; /* เพิ่มระยะ padding รอบเนื้อหา */
+  padding-left: 477px; /* ระยะห่างด้านซ้ายเพิ่มเติม */
+  margin: 20px; /* ระยะห่างรอบขอบของกล่อง */
+  background: white; /* สีพื้นหลังของกล่อง */
+  border-radius: 5px; /* ทำมุมโค้ง */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* เพิ่มเงาแบบจางๆ */
+}
+
+.connection-settings h3 {
+  padding-right: 1100px; /* ระยะห่างด้านขวาของหัวข้อ */
+  font-size: 20px; /* ขนาดตัวอักษร */
+  margin-bottom: 15px; /* ระยะห่างด้านล่างของหัวข้อ */
+}
+
+.connection-settings table {
+  display: center; /* จัดตารางให้อยู่กึ่งกลาง */
+  width: 71%; /* ความกว้างของตาราง */
+  border-collapse: collapse; /* รวมเส้นขอบตาราง */
+}
+
+.connection-settings th,
+.connection-settings td {
+  border: 1px solid #ddd; /* เส้นขอบสีเทาอ่อน */
+  padding: 10px; /* เพิ่มระยะ padding รอบเนื้อหา */
+  text-align: left; /* จัดข้อความให้อยู่ด้านซ้าย */
+  vertical-align: top; /* จัดข้อความให้อยู่ด้านบนของเซลล์ */
+}
+
+.connection-settings th {
+  background-color: #f9f9f9; /* สีพื้นหลังของหัวข้อ */
+  font-weight: bold; /* ทำให้ข้อความหนา */
+  text-align: center; /* จัดข้อความให้อยู่กึ่งกลาง */
+}
+
+td {
+  font-size: 12px; /* ขนาดตัวอักษรในเซลล์ */
+  padding: 59px; /* เพิ่มระยะ padding รอบเนื้อหา */
+}
+
+.connection-settings {
+  font-size: 13px; /* ขนาดตัวอักษร */
+}
+
+.connection-settings td[colspan="3"] {
+  text-align: center; /* จัดข้อความให้อยู่กึ่งกลาง */
+  font-weight: bold; /* ทำให้ข้อความหนา */
+}
+
+.footer {
+  background-color: #f2f2f2; /* สีพื้นหลังของ footer */
+  text-align: center; /* จัดข้อความให้อยู่กึ่งกลาง */
+  padding: 20px; /* เพิ่มระยะ padding รอบเนื้อหา */
+  font-size: 14px; /* ขนาดตัวอักษร */
+  color: #333; /* สีข้อความ */
+  border-top: 1px solid #ddd; /* เส้นขอบด้านบน */
+}
+
+.footer p {
+  margin: 5px 0; /* ระยะห่างรอบข้อความ */
+}
+
+.footer a {
+  color: #007bff; /* สีของลิงก์ */
+  text-decoration: none; /* ลบเส้นใต้ */
+}
+
+.footer a:hover {
+  text-decoration: underline; /* แสดงเส้นใต้เมื่อเลื่อนเมาส์ */
+}
+
+.help {
+  font-size: 30px; /* ขนาดตัวอักษร */
+  margin-left: 20%; /* ระยะห่างด้านซ้าย */
+  margin-right: auto; /* ระยะห่างด้านขวา */
+}

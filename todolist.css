@@ -1,0 +1,247 @@
+/* สไตล์พื้นฐานของหน้าเว็บ */
+body {
+    font-family: "Arial", sans-serif; /* กำหนดฟอนต์ */
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(
+      135deg,
+      #f8fafc,
+      #3215d8
+    ); /* พื้นหลังแบบไล่สี */
+    height: 100vh; /* กำหนดความสูงเต็มหน้าจอ */
+    display: flex;
+    align-items: center; /* จัดให้อยู่กึ่งกลางในแนวตั้ง*/
+    justify-content: center;
+    flex-direction: column;
+  }
+
+  /* สไตล์ของกล่องคอนเทนเนอร์ */
+  .container {
+    margin-bottom: 20px;
+    background-color: white; /* สีพื้นหลังของกล่อง */
+    padding: 50px; /* ระยะห่างภายในกล่อง */
+    border-radius: 10px; /* มุมโค้ง */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* เงาของกล่อง */
+    width: 400px; /* ความกว้างของกล่อง */
+    text-align: center;
+  }
+
+  /* สไตล์หัวข้อ */
+  h1 {
+    margin-bottom: 20px; /* ระยะห่างด้านล่าง */
+    font-size: 24px; /* ขนาดฟอนต์ */
+    color: #333; /* สีของข้อความ */
+  }
+
+  h2 {
+    margin-bottom: 20px; /* ระยะห่างด้านล่าง */
+    font-size: 24px; /* ขนาดฟอนต์ */
+    color: #333; /* สีของข้อความ */
+  }
+
+  /* สไตล์กลุ่มของอินพุต */
+  .input-group {
+    display: flex; /* จัดเรียงให้อยู่ในแนวนอน */
+    justify-content: center; /* จัดให้อยู่กึ่งกลาง */
+    margin-bottom: 20px; /* ระยะห่างด้านล่าง */
+  }
+
+  /* สไตล์ของช่องป้อนข้อมูล */
+  .input-group input {
+    width: 60%; /* ความกว้าง */
+    padding: 10px; /* ระยะห่างภายใน */
+    margin-right: 5px; /* ระยะห่างระหว่างช่องป้อนข้อมูล */
+    border: 1px solid #ccc; /* ขอบ */
+    border-radius: 5px; /* มุมโค้ง */
+    font-size: 14px; /* ขนาดฟอนต์ */
+  }
+
+  /* สไตล์ของปุ่มเพิ่ม Task */
+  #addTask {
+    padding: 10px 20px; /* ระยะห่างภายใน */
+    border: none; /* ไม่มีขอบ */
+    border-radius: 5px; /* มุมโค้ง */
+    background-color: #4caf50; /* สีพื้นหลัง */
+    color: white; /* สีข้อความ */
+    font-size: 14px; /* ขนาดฟอนต์ */
+    cursor: pointer; /* เปลี่ยนเคอร์เซอร์เมื่อชี้ */
+    transition: all 0.3s ease; /* การเปลี่ยนแปลงที่นุ่มนวล */
+  }
+
+  /* สไตล์เมื่อโฮเวอร์ปุ่ม */
+  #addTask:hover {
+    background-color: #45a049; /* สีพื้นหลังเมื่อโฮเวอร์ */
+    transform: translateY(-2px); /* ย้ายปุ่มขึ้น */
+  }
+
+  /* สไตล์ของรายการ Task */
+  ul {
+    padding: 0; /* ไม่มีระยะห่างด้านใน */
+    margin: 0; /* ไม่มีระยะห่างด้านนอก */
+  }
+
+  /* สไตล์ของแต่ละรายการ Task */
+  li {
+    margin-bottom: 10px; /* ระยะห่างด้านล่าง */
+    padding: 10px; /* ระยะห่างภายใน */
+    background-color: #f4f4f4; /* สีพื้นหลัง */
+    border-radius: 5px; /* มุมโค้ง */
+    display: flex; /* จัดให้อยู่ในแนวนอน */
+    justify-content: space-between; /* จัดระหว่างข้อความกับปุ่ม */
+    align-items: center; /* จัดให้อยู่กึ่งกลางในแนวตั้ง */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* เงาของรายการ */
+    transition: all 0.3s ease; /* การเปลี่ยนแปลงที่นุ่มนวล */
+  }
+
+  /* สไตล์เมื่อโฮเวอร์รายการ */
+  li:hover {
+    background-color: #e8f0fe; /* เปลี่ยนสีพื้นหลัง */
+    transform: translateY(-2px); /* ย้ายรายการขึ้น */
+  }
+
+  /* สไตล์ของปุ่มลบ Task */
+  .deleteTask {
+    padding: 0px; /* ระยะห่างภายใน */
+    border: none; /* ไม่มีขอบ */
+    border-radius: 5px; /* มุมโค้ง */
+    background-color: #f4f4f4; /* สีพื้นหลัง */
+    color: white; /* สีข้อความ */
+    font-size: 14px; /* ขนาดฟอนต์ */
+    cursor: pointer; /* เปลี่ยนเคอร์เซอร์เมื่อชี้ */
+    transform: translateX(-10px);
+    /* transition: all 0.3s ease;  */
+  }
+
+  /* สไตล์เมื่อโฮเวอร์ปุ่มลบ */
+ /* .deleteTask:hover { 
+    background-color: #e8f0fe; 
+    transform: scale(1.1);
+  }  */
+
+  /* สไตล์เมื่อช่องป้อนข้อมูลถูกโฟกัส */
+  input:focus {
+    outline: none; /* ลบกรอบเดิม */
+    border-color: #4caf50; /* เปลี่ยนสีขอบ */
+  }
+  .taskcss {
+    display: block;
+    word-wrap: break-word; /* ตัดคำเมื่อเกินขอบ */
+    overflow-wrap: break-word; /* ตัดคำเมื่อเกินขอบ */
+    word-break: break-all; /* ตัดคำทุกตัวอักษรถ้ามันยาวเกิน */
+    padding: 5px;
+    text-align: left;
+    max-width: 100%; /* จำกัดความกว้างให้ไม่เกิน 100% */
+    box-sizing: border-box; /* รวม padding ในการคำนวณความกว้าง */
+  }
+
+  .task-name {
+    display: inline-block;
+    max-width: 300px; /* ปรับความกว้างตามต้องการ */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    vertical-align: middle;
+    margin-left: 0px;
+  }
+
+  .task-des {
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* จำกัดให้แสดงแค่ 3 บรรทัด */
+     -webkit-box-orient: vertical; /*กำหนดให้แสดงข้อความใน แนวตั้ง */
+    overflow: hidden;
+    max-width: 300px; /* กำหนดความกว้าง */
+    text-overflow: ellipsis;
+    white-space: normal;
+    text-align: left; /* จัดข้อความชิดซ้าย */
+    word-break: break-word; /* ตัดคำเมื่อเกินขนาดกล่อง */
+    line-height: 20px; /* ปรับระยะห่างระหว่างบรรทัด (ใช้ px) */
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+  }
+
+  .mylistcontainer {
+    text-align: center;
+    margin: 20px auto;
+    width: 95%; /* หรือปรับตามความเหมาะสม */
+    padding: 10px;
+    background-color: #fff;
+    /* border-radius: 8px; */
+    /* box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); */
+    padding-top: 20px;
+  }
+
+  /* ส่วนของ pop up ตอนลบ  */
+  .modal {
+    display: none;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    justify-content: center;
+    align-items: center;
+  }
+
+  .modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    width: 300px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  .modal-header {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 15px;
+  }
+
+  .modal-body {
+    margin-bottom: 15px;
+  }
+
+  .modal-footer {
+    display: flex;
+    justify-content: space-around;
+  }
+
+  .btn {
+    padding: 8px 15px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 14px;
+  }
+
+  .btn.confirm {
+    background-color: #e74c3c;
+    color: white;
+ 
+  }
+
+  .btn.cancel {
+    background-color: #bdc3c7;
+    color: white;
+  }
+
+  .btn.confirm:hover {
+    background-color: #fc091d;
+  }
+
+  .btn.cancel:hover {
+    background-color: #919191;
+  }
+
+  .modal-text {
+    word-wrap: break-word; /* บังคับให้ตัดคำ */
+    overflow-wrap: break-word; /* รองรับ browser ใหม่ๆ */
+    max-width: 100%; /* ป้องกันข้อความยาวเกินขอบกล่อง */
+    white-space: normal; /* อนุญาตให้ขึ้นบรรทัดใหม่ */
+    text-align: center; /* จัดให้อยู่ตรงกลาง */
+}
+
+
+  

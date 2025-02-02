@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        .task { display: flex; align-items: center; margin: 5px 0; }
+        .task input { margin-right: 10px; }
+        .completed { text-decoration: line-through; color: gray; }
+        button { margin-left: 10px; }
+    </style>
+</head>
+<body>
+    <h2>To-Do List</h2>
+    <input type="text" id="taskName" placeholder="Task name">
+    <input type="text" id="des" placeholder="Task description">
+    <button onclick="addTask()">Add Task</button>
+    <button onclick="bulkDelete()">Delete Selected</button>
+    <ul id="taskList"></ul>
+    
+    <script>
+        const defaultTasks = [
+            { id: Date.now(), name: "Task 1", description: "123123", completed: false },
+            { id: Date.now() + 1, name: "Task 2", description: "qqq", completed: false },
+            { id: Date.now() + 2, name: "Task 3", description: "qqq", completed: false }
+        ];
+
+        let tasks = JSON.parse(localStorage.getItem('tasks')) || [...defaultTasks];
+        renderTasks();
+
+        function addTask() {
+            const name = document.getElementById('taskName').value.trim();
+            const description = document.getElementById('des').value.trim();
+            if (!name || !description) {
+                alert("Please enter both task name and description.");
+                return;
+            }
+            const newTask = { id: Date.now(), name, description, completed: false };
+            tasks.push(newTask);
+            saveAndRender();
+        }
+
+        function toggleTask(id) {
+            tasks = tasks.map(task => task.id === id ? { ...task, completed: !task.completed } : task);
+            saveAndRender();
+        }
+
+        function bulkDelete() {
+            const selected = document.querySelectorAll('.task input:checked');
+            if (selected.length === 0) return;
+            if (!confirm('Are you sure you want to delete selected tasks?')) return;
+            const selectedIds = Array.from(selected).map(input => parseInt(input.dataset.id));
+            tasks = tasks.filter(task => !selectedIds.includes(task.id));
+            saveAndRender();
+        }
+
+        function deleteTask(id) {
+            if (!confirm('Are you sure you want to delete this task?')) return;
+            tasks = tasks.filter(task => task.id !== id);
+            saveAndRender();
+        }
+
+        function saveAndRender() {
+            localStorage.setItem('tasks', JSON.stringify(tasks));
+            renderTasks();
+        }
+
+        function renderTasks() {
+            const taskList = document.getElementById('taskList');
+            taskList.innerHTML = '';
+            tasks.forEach(task => {
+                const li = document.createElement('li');
+                li.className = 'task' + (task.completed ? ' completed' : '');
+                li.innerHTML = `
+                    <input type="checkbox" data-id="${task.id}" ${task.completed ? 'checked' : ''}>
+                    <span>${task.name} - ${task.description}</span>
+                    <button onclick="deleteTask(${task.id})">❌</button>
+                `;
+                taskList.appendChild(li);
+            });
+        }
+
+        document.getElementById('taskList').addEventListener('click', function(event) {
+            const target = event.target;
+            if (target.tagName === 'INPUT' && target.type === 'checkbox') {
+                toggleTask(parseInt(target.dataset.id));
+            } else if (target.tagName === 'BUTTON') {
+                deleteTask(parseInt(target.parentElement.querySelector('input').dataset.id));
+            }
+        });
+    </script>
+</body>
+</html>

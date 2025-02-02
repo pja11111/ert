@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>To-Do List</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="todolist.css">
+  </head>
+  <body>
+    <div class="container">
+      <h1>To-Do List</h1>
+
+      <div class="input-group">
+        <input type="text" id="taskNameInput" placeholder="Task Name" />
+        <input type="text" id="taskDescriptionInput" placeholder="Description"/>
+        <button id="addTask">Add</button>
+      </div>
+
+      <ul id="taskList"></ul>
+
+      <div class="mylistcontainer">
+        <h2>My Check</h2>
+        <ul id="mylist"></ul>
+      </div>
+    </div>
+
+    <div id="deleteModal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">ยืนยันการลบ</div>
+        <div class="modal-body" id="modalText"></div>
+        <div class="modal-footer">
+          <button class="btn confirm" id="confirmDelete">Confirm</button>
+          <button class="btn cancel" id="cancelDelete">Cancel</button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // รับ Element จาก DOM
+      const addButton = document.getElementById("addTask");
+      const taskNameInput = document.getElementById("taskNameInput");
+      const taskDescriptionInput = document.getElementById("taskDescriptionInput");
+      const taskList = document.getElementById("taskList");
+
+      // dom pop up ของ ดีลีท
+      const deleteModal = document.getElementById("deleteModal");
+      const modalText = document.getElementById("modalText");
+      const confirmDeleteBtn = document.getElementById("confirmDelete");
+      const cancelDeleteBtn = document.getElementById("cancelDelete");
+
+      let targetItem = null;
+
+      // ฟังก์ชันสำหรับเพิ่มtask
+      function addTask() {
+        const taskName = taskNameInput.value.trim(); 
+        const taskDescription = taskDescriptionInput.value.trim(); 
+
+        if (taskName && taskDescription) {
+          createTaskElement(taskName, taskDescription);
+          taskNameInput.value = "";
+          taskDescriptionInput.value = "";
+        } else {
+          alert("Please fill out both fields!");
+        }
+      }
+      addButton.addEventListener("click", addTask);
+
+      function createTaskElement(taskName, taskDescription) {
+        const listItem = document.createElement("li");
+
+        const taskContainer = document.createElement("div");
+        taskContainer.style.display = "flex";
+
+        const checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        checkbox.className = "checkBOX";
+
+        const taskContent = document.createElement("span");
+        taskContent.className = "taskcss";
+
+        const taskNameElement = document.createElement("strong");
+        taskNameElement.className = "task-name";
+        taskNameElement.textContent = taskName;
+        taskNameElement.title = taskName;
+
+        const taskdesElement = document.createElement("p");
+        taskdesElement.className = "task-des";
+        taskdesElement.textContent = taskDescription;
+        taskdesElement.title = taskDescription;
+
+        taskContent.appendChild(taskNameElement);
+        taskContent.appendChild(document.createElement("br"));
+        taskContent.appendChild(taskdesElement);
+
+        checkbox.addEventListener("click", function () {
+          if (checkbox.checked) {
+            taskNameElement.style.textDecoration = "line-through";
+            taskdesElement.style.textDecoration = "line-through";
+            document.getElementById("mylist").appendChild(listItem);
+          } else {
+            taskNameElement.style.textDecoration = "none";
+            taskdesElement.style.textDecoration = "none";
+            document.getElementById("taskList").appendChild(listItem);
+          }
+        });
+
+        taskContainer.appendChild(checkbox);
+        taskContainer.appendChild(taskContent);
+        listItem.appendChild(taskContainer);
+
+        const deleteButton = document.createElement("button");
+        deleteButton.innerHTML = '<i class="fa-solid fa-trash-can" style="color: red;"></i>';
+        deleteButton.className = "deleteTask";
+
+        deleteButton.addEventListener("click", function () {
+          targetItem = listItem;
+          modalText.innerHTML = `
+          <div class="modal-text">คุณต้องการลบ "<strong>${taskName}</strong>" หรือไม่?<br>
+              กรุณาพิมพ์ <strong>"confirm"</strong> ในช่องด้านล่างเพื่อยืนยันการลบ:<br>
+              <input type="text" id="confirmInput">
+          </div>`;
+          deleteModal.style.display = "flex";
+        });
+
+        listItem.appendChild(deleteButton);
+        taskList.insertBefore(listItem, taskList.firstChild);
+      }
+
+      confirmDeleteBtn.addEventListener("click", function () {
+        const confirmInput = document.getElementById("confirmInput");
+        if (targetItem && confirmInput.value.trim().toLowerCase() === "confirm") {
+          targetItem.remove();
+          targetItem = null;
+          deleteModal.style.display = "none";
+        } else {
+          alert("กรุณาพิมพ์ 'confirm' ให้ถูกต้องก่อนลบ");
+        }
+      });
+
+      cancelDeleteBtn.addEventListener("click", function () {
+        deleteModal.style.display = "none";
+      });
+    </script>
+  </body>
+</html>

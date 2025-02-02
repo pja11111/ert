@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>To-Do List</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <style>
+      /* สไตล์พื้นฐานของหน้าเว็บ */
+      body {
+        font-family: "Arial", sans-serif; /* กำหนดฟอนต์ */
+        margin: 0;
+        padding: 0;
+        background: linear-gradient( 135deg, #f8fafc, #3215d8); /* พื้นหลังแบบไล่สี */
+        height: 100vh; /* กำหนดความสูงเต็มหน้าจอ */
+        display: flex;
+        align-items: center; /* จัดให้อยู่กึ่งกลางในแนวตั้ง*/
+        justify-content: center;
+      }
+
+      /* สไตล์ของกล่องคอนเทนเนอร์ */
+      .container {
+        background-color: white; /* สีพื้นหลังของกล่อง */
+        padding: 50px; /* ระยะห่างภายในกล่อง */
+        border-radius: 10px; /* มุมโค้ง */
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* เงาของกล่อง */
+        width: 400px; /* ความกว้างของกล่อง */
+        text-align: center; /* จัดข้อความให้อยู่กึ่งกลาง */
+      }
+
+      /* สไตล์หัวข้อ */
+      h1 {
+        margin-bottom: 20px; /* ระยะห่างด้านล่าง */
+        font-size: 24px; /* ขนาดฟอนต์ */
+        color: #333; /* สีของข้อความ */
+      }
+
+      /* สไตล์กลุ่มของอินพุต */
+      .input-group {
+        display: flex; /* จัดเรียงให้อยู่ในแนวนอน */
+        justify-content: center; /* จัดให้อยู่กึ่งกลาง */
+        margin-bottom: 20px; /* ระยะห่างด้านล่าง */
+      }
+
+      /* สไตล์ของช่องป้อนข้อมูล */
+      .input-group input {
+        width: 60%; /* ความกว้าง */
+        padding: 10px; /* ระยะห่างภายใน */
+        margin-right: 5px; /* ระยะห่างระหว่างช่องป้อนข้อมูล */
+        border: 1px solid #ccc; /* ขอบ */
+        border-radius: 5px; /* มุมโค้ง */
+        font-size: 14px; /* ขนาดฟอนต์ */
+      }
+
+      /* สไตล์ของปุ่มเพิ่ม Task */
+      #addTask {
+        padding: 10px 20px; /* ระยะห่างภายใน */
+        border: none; /* ไม่มีขอบ */
+        border-radius: 5px; /* มุมโค้ง */
+        background-color: #4caf50; /* สีพื้นหลัง */
+        color: white; /* สีข้อความ */
+        font-size: 14px; /* ขนาดฟอนต์ */
+        cursor: pointer; /* เปลี่ยนเคอร์เซอร์เมื่อชี้ */
+        transition: all 0.3s ease; /* การเปลี่ยนแปลงที่นุ่มนวล */
+      }
+
+      /* สไตล์เมื่อโฮเวอร์ปุ่ม */
+      #addTask:hover {
+        background-color: #45a049; /* สีพื้นหลังเมื่อโฮเวอร์ */
+        transform: translateY(-2px); /* ย้ายปุ่มขึ้น */
+      }
+
+      /* สไตล์ของรายการ Task */
+      ul {
+        padding: 0; /* ไม่มีระยะห่างด้านใน */
+        margin: 0; /* ไม่มีระยะห่างด้านนอก */
+      }
+
+      /* สไตล์ของแต่ละรายการ Task */
+      li {
+        margin-bottom: 10px; /* ระยะห่างด้านล่าง */
+        padding: 10px; /* ระยะห่างภายใน */
+        background-color: #f4f4f4; /* สีพื้นหลัง */
+        border-radius: 5px; /* มุมโค้ง */
+        display: flex; /* จัดให้อยู่ในแนวนอน */
+        justify-content: space-between; /* จัดระหว่างข้อความกับปุ่ม */
+        align-items: center; /* จัดให้อยู่กึ่งกลางในแนวตั้ง */
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* เงาของรายการ */
+        transition: all 0.3s ease; /* การเปลี่ยนแปลงที่นุ่มนวล */
+      }
+
+      /* สไตล์เมื่อโฮเวอร์รายการ */
+      li:hover {
+        background-color: #e8f0fe; /* เปลี่ยนสีพื้นหลัง */
+        transform: translateY(-2px); /* ย้ายรายการขึ้น */
+      }
+
+      /* สไตล์ของปุ่มลบ Task */
+      .deleteTask {
+        padding: 5px 10px; /* ระยะห่างภายใน */
+        border: none; /* ไม่มีขอบ */
+        border-radius: 5px; /* มุมโค้ง */
+        background-color: #ff6b6b; /* สีพื้นหลัง */
+        color: white; /* สีข้อความ */
+        font-size: 14px; /* ขนาดฟอนต์ */
+        cursor: pointer; /* เปลี่ยนเคอร์เซอร์เมื่อชี้ */
+        transition: all 0.3s ease; /* การเปลี่ยนแปลงที่นุ่มนวล */
+      }
+
+      /* สไตล์เมื่อโฮเวอร์ปุ่มลบ */
+      .deleteTask:hover {
+        background-color: #e63946; /* สีพื้นหลังเมื่อโฮเวอร์ */
+        transform: scale(1.1); /* ขยายปุ่ม */
+      }
+
+      /* สไตล์เมื่อช่องป้อนข้อมูลถูกโฟกัส */
+      input:focus {
+        outline: none; /* ลบกรอบเดิม */
+        border-color: #4caf50; /* เปลี่ยนสีขอบ */
+        box-shadow: 0 0 5px rgba(76, 175, 80, 0.5); /* เพิ่มเงา */
+      }
+
+      /* สไตล์ของ Task Content */
+      .taskcss {
+        display: block;
+        word-wrap: break-word; /* ตัดคำเมื่อเกินขอบ */
+        overflow-wrap: break-word; /* ตัดคำเมื่อเกินขอบ */
+        word-break: break-all; /* ตัดคำทุกตัวอักษรถ้ามันยาวเกิน */
+        padding: 5px;
+        text-align: left;
+        max-width: 90%; /* จำกัดความกว้างให้ไม่เกิน 100% */
+        box-sizing: border-box; /* รวม padding ในการคำนวณความกว้าง */
+      }
+
+      .task-name {
+        display: inline-block;
+        max-width: 290px; /* ปรับความกว้างตามต้องการ */
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        vertical-align: middle;
+      }
+
+      .task-des
+      .taskcss {
+        display: inline-block;
+        max-width: 290px; /* ปรับความกว้างตามต้องการ */
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        vertical-align: middle;
+    }
+
+
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>To-Do List</h1>
+      <div class="input-group">
+        <input type="text" id="taskNameInput" placeholder="Task Name" />
+        <input type="text" id="taskDescriptionInput" placeholder="Description"/>
+        <button id="addTask">Add</button>
+      </div>
+
+      <ul id="taskList"></ul>
+    </div>
+
+    <script>
+      // รับ Element จาก DOM
+      const addButton = document.getElementById("addTask");
+      const taskNameInput = document.getElementById("taskNameInput");
+      const taskDescriptionInput = document.getElementById(
+        "taskDescriptionInput"
+      );
+      const taskList = document.getElementById("taskList");
+
+      // ฟังก์ชันสำหรับเพิ่ม Task
+      function addTask() {
+        // ดึงค่าจากช่องป้อนข้อมูล
+        const taskName = taskNameInput.value.trim(); // ชื่อ Task
+        const taskDescription = taskDescriptionInput.value.trim(); // คำอธิบาย
+
+        // ตรวจสอบว่ามีการกรอกข้อมูลครบหรือไม่
+        if (taskName && taskDescription) {
+          // ถ้าข้อมูลครบ สร้าง Task ใหม่
+          createTaskElement(taskName, taskDescription);
+          // ล้างค่าช่องป้อนข้อมูล
+          taskNameInput.value = "";
+          taskDescriptionInput.value = "";
+        } else {
+          // ถ้าข้อมูลไม่ครบ ให้แจ้งเตือน
+          alert("Please fill out both fields!");
+        }
+      }
+
+      // เพิ่ม Event Listener ให้ปุ่ม Add
+      addButton.addEventListener("click", addTask);
+
+      // ฟังก์ชันสำหรับสร้าง Task ใหม่
+      function createTaskElement(taskName, taskDescription) {
+  const listItem = document.createElement("li");
+
+  // สร้าง container สำหรับ checkbox และข้อความ
+  const taskContainer = document.createElement("div");
+  taskContainer.style.display = "flex";
+
+  // Checkbox
+  const checkbox = document.createElement("input");
+  checkbox.type = "checkbox";
+  checkbox.className = "checkBOX";
+
+  // สร้างข้อความของ Task
+  const taskContent = document.createElement("span");
+  taskContent.className = "taskcss";
+  taskContent.innerHTML = `<strong class="task-name">${taskName}</strong>   <br><p class="task-des">${taskDescription}</p>`;
+
+ // title tooltip
+  const taskNameElement = taskContent.querySelector(".task-name");
+  taskContent.className = "tooltiptaskname"
+  taskNameElement.title = taskName; 
+  const taskdesElement = taskContent.querySelector(".task-des");
+  taskContent.className = "tooltiptasktaskDescription"
+  taskdesElement.title = taskDescription; 
+
+  // Checkbox ติ๊กแล้วขีดฆ่า
+  checkbox.addEventListener("click", function () {
+            if (checkbox.checked) {
+            taskContent.style.textDecoration = "line-through";
+            } else {
+            taskContent.style.textDecoration = "none";
+            }
+        });
+
+  // รวม checkbox และข้อความไว้ใน taskContainer
+  taskContainer.appendChild(checkbox);
+  taskContainer.appendChild(taskContent);
+  listItem.appendChild(taskContainer);
+
+  // ปุ่มลบ
+  const deleteButton = document.createElement("button");
+  deleteButton.innerHTML = '<i class="fa-solid fa-trash-can"></i>';
+  deleteButton.className = "deleteTask";
+  deleteButton.addEventListener("click", function () {
+    taskList.removeChild(listItem);
+  });
+
+  listItem.appendChild(deleteButton);
+  taskList.insertBefore(listItem, taskList.firstChild);
+}
+    </script>
+  </body>
+</html>
